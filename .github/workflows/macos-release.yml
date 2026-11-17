@@ -1,0 +1,137 @@
+name: Internal macOS release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing fork tag, for example v0.2.0-internal.1
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: internal-macos-release-${{ inputs.tag }}
+  cancel-in-progress: false
+
+env:
+  GOTOOLCHAIN: local
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    outputs:
+      source_sha: ${{ steps.source.outputs.sha }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ inputs.tag }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Bind release to the fork source
+        id: source
+        env:
+          TAG: ${{ inputs.tag }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          test "$REPOSITORY" = robinmordasiewicz/cursor-cli-byok
+          [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+-internal\.[0-9]+$ ]]
+          source_sha=$(git rev-parse "refs/tags/$TAG^{commit}")
+          test "$source_sha" = "$(git rev-parse HEAD)"
+          git merge-base --is-ancestor "$source_sha" origin/build-internal
+          echo "sha=$source_sha" >> "$GITHUB_OUTPUT"
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
+        with:
+          go-version-file: packaging/go-version.txt
+          cache: true
+      - name: Verify fork source
+        run: make fmt-check test vet shell-test race
+
+  macos:
+    needs: [verify]
+    environment: macos-release
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-15
+            arch: arm64
+          - os: macos-15-intel
+            arch: amd64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ needs.verify.outputs.source_sha }}
+          persist-credentials: false
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
+        with:
+          go-version-file: packaging/go-version.txt
+          cache: true
+      - name: Build macOS release binary
+        env:
+          VERSION: ${{ inputs.tag }}
+          ARCH: ${{ matrix.arch }}
+        run: |
+          set -euo pipefail
+          CGO_ENABLED=0 GOOS=darwin GOARCH="$ARCH" make build VERSION="$VERSION"
+          test "$(dist/cursor-cli-byok --version)" = "cursor-cli-byok $VERSION"
+      - name: Install official Cursor CLI through Homebrew
+        run: brew install --cask cursor-cli
+      - name: Require current Cursor compatibility before signing
+        run: |
+          set -euo pipefail
+          expected_cursor=$(cat packaging/cursor-version.txt)
+          CGO_ENABLED=0 go build -trimpath -o dist/e2e-helper ./test/e2e
+          E2E_EXPECT_CURSOR_VERSION="$expected_cursor" \
+            E2E_BYOK_BINARY="$PWD/dist/cursor-cli-byok" \
+            E2E_HELPER_BINARY="$PWD/dist/e2e-helper" E2E_KEEP_TMP=1 make e2e
+      - name: Sign, notarize and staple disk image
+        env:
+          VERSION: ${{ inputs.tag }}
+          SOURCE_COMMIT: ${{ needs.verify.outputs.source_sha }}
+          APPLE_CERTIFICATE_BASE64: ${{ secrets.APPLE_CERTIFICATE_BASE64 }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: bash scripts/sign-macos.sh dist/cursor-cli-byok "$VERSION" release-assets
+      - name: Upload notarized artifacts
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: notarized-macos-${{ matrix.arch }}
+          path: release-assets/*
+          if-no-files-found: error
+
+  publish:
+    needs: [verify, macos]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          pattern: notarized-macos-*
+          path: release-assets
+          merge-multiple: true
+      - name: Verify final artifact checksums
+        working-directory: release-assets
+        run: |
+          set -euo pipefail
+          test -f cursor-cli-byok-darwin-arm64.dmg
+          test -f cursor-cli-byok-darwin-amd64.dmg
+          sha256sum -c ./*.sha256
+      - name: Publish fork release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ inputs.tag }}
+          SOURCE_COMMIT: ${{ needs.verify.outputs.source_sha }}
+        run: |
+          set -euo pipefail
+          printf 'Built from fork commit %s. Both disk images passed Developer ID signing, Apple notarization, staple validation and Gatekeeper assessment.\n' "$SOURCE_COMMIT" > release-notes.txt
+          gh release create "$TAG" release-assets/* --verify-tag --draft \
+            --title "Cursor CLI BYOK $TAG" --notes-file release-notes.txt

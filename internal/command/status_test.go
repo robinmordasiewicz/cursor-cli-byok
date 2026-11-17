@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/daemon"
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/paths"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/daemon"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/paths"
 )
 
 func TestStatusReportsStoppedRunningAndStale(t *testing.T) {

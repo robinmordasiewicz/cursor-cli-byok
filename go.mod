@@ -1,4 +1,4 @@
-module github.com/shiqkuangsan/cursor-cli-byok
+module github.com/robinmordasiewicz/cursor-cli-byok
 
 go 1.24.0
 

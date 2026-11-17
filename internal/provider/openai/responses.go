@@ -6,7 +6,7 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/provider"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/provider"
 )
 
 var errResponsesDone = errors.New("responses stream done")

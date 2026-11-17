@@ -10,8 +10,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/certs"
-	localserver "github.com/shiqkuangsan/cursor-cli-byok/internal/server"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/certs"
+	localserver "github.com/robinmordasiewicz/cursor-cli-byok/internal/server"
 )
 
 func TestHTTPProbeAuthenticatesHealthyInstance(t *testing.T) {

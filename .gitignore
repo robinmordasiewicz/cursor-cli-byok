@@ -10,3 +10,5 @@
 /dist/
 /coverage.out
 /cursor-cli-byok
+/.local-evidence/
+__pycache__/

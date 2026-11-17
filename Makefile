@@ -1,7 +1,7 @@
 GO ?= go
 VERSION ?= dev
 BUILD_DIR ?= dist
-MODULE := github.com/shiqkuangsan/cursor-cli-byok
+MODULE := github.com/robinmordasiewicz/cursor-cli-byok
 MAIN_PACKAGE := ./cmd/cursor-cli-byok
 LDFLAGS := -s -w -X $(MODULE)/internal/buildinfo.Version=$(VERSION)
 BUILD_FLAGS := -buildvcs=false -trimpath -ldflags "$(LDFLAGS)"

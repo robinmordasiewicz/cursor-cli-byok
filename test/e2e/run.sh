@@ -225,7 +225,7 @@ else
     cd "$ROOT_DIR"
     GOTOOLCHAIN=local GOENV=off GOWORK=off GOFLAGS= GOPROXY=off CGO_ENABLED=0 \
       GOMODCACHE="$GO_MODULE_CACHE" GOCACHE="$E2E_ROOT/go-build-cache" go build -trimpath \
-      -ldflags '-s -w -X github.com/shiqkuangsan/cursor-cli-byok/internal/buildinfo.Version=e2e' \
+      -ldflags '-s -w -X github.com/robinmordasiewicz/cursor-cli-byok/internal/buildinfo.Version=e2e' \
       -o "$BYOK" ./cmd/cursor-cli-byok
     GOTOOLCHAIN=local GOENV=off GOWORK=off GOFLAGS= GOPROXY=off CGO_ENABLED=0 \
       GOMODCACHE="$GO_MODULE_CACHE" GOCACHE="$E2E_ROOT/go-build-cache" go build -trimpath -o "$HELPER" ./test/e2e

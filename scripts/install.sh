@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-REPOSITORY=shiqkuangsan/cursor-cli-byok
+REPOSITORY=robinmordasiewicz/cursor-cli-byok
 VERSION=${CURSOR_CLI_BYOK_VERSION:-latest}
 INSTALL_DIR=${CURSOR_CLI_BYOK_INSTALL_DIR:-}
 RELEASE_BASE_URL=${CURSOR_CLI_BYOK_RELEASE_BASE_URL:-}

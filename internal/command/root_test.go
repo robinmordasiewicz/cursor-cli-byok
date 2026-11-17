@@ -5,7 +5,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/buildinfo"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/buildinfo"
 )
 
 type failingWriter struct{}

@@ -1,5 +1,11 @@
 # cursor-cli-byok
 
+This is the `robinmordasiewicz` fork, with independent Linux/macOS builds and
+an Apple signing/notarization workflow. See [Internal builds](docs/internal-builds.md)
+for source provenance, release credentials, and the current November Cursor
+compatibility failure. The upstream documentation below is retained as history;
+its release URLs and July acceptance matrix do not qualify this fork's builds.
+
 **English** | [简体中文](README.zh-CN.md)
 
 `cursor-cli-byok` is an independent, explicit wrapper that runs the official

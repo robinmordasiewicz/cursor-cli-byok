@@ -2,7 +2,7 @@
 
 ## Product Boundary
 
-- Build a standalone, pure-Go `cursor-cli-byok` executable for headless Linux.
+- Build a standalone, pure-Go `cursor-cli-byok` executable for macOS and headless Linux.
 - Keep BYOK explicit; do not replace or modify the official `cursor-agent`.
 - Do not require Cursor IDE, Cursor authentication, a GUI, MITM, or system proxy
   changes.
@@ -39,6 +39,10 @@
 - Keep code and comments in English. Run `gofmt -w .` and `go test ./...` before
   reporting completion.
 - Keep the default build free of CGO so Linux targets remain cross-compilable.
+- Fork ownership, release gates, Apple signing requirements, and current
+  compatibility limitations are documented in `docs/internal-builds.md`.
+- The imported upstream CI/release workflows are manual historical references.
+  `Fork CI` and `Internal macOS release` own this fork's builds and signing.
 - Never log API keys, authorization headers, or unredacted sensitive payloads.
 - Do not commit, push, create pull requests, or publish releases without explicit
   user authorization.

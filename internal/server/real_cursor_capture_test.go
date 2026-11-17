@@ -13,10 +13,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/agent"
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/certs"
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/config"
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/protocol"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/agent"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/certs"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/config"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/protocol"
 	"google.golang.org/protobuf/encoding/protowire"
 )
 

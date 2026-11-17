@@ -6,7 +6,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/command"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/command"
 )
 
 func main() {

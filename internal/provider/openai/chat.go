@@ -7,7 +7,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/provider"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/provider"
 )
 
 var errChatDone = errors.New("chat stream done")
