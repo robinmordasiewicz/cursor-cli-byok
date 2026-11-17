@@ -48,6 +48,26 @@ jobs:
           cache: true
       - name: Verify fork source
         run: make fmt-check test vet shell-test race
+      - name: Build fork Linux release assets
+        env:
+          VERSION: ${{ inputs.tag }}
+          SOURCE_COMMIT: ${{ steps.source.outputs.sha }}
+        run: |
+          set -euo pipefail
+          make cross-build VERSION="$VERSION"
+          BYOK_BINARY="$PWD/dist/cursor-cli-byok-linux-amd64" ./test/linux-smoke/run.sh
+          mkdir release-assets
+          cp dist/cursor-cli-byok-linux-amd64 dist/cursor-cli-byok-linux-arm64 release-assets/
+          python3 scripts/artifact-receipt.py release-assets/cursor-cli-byok-linux-amd64 "$SOURCE_COMMIT" linux-amd64
+          python3 scripts/artifact-receipt.py release-assets/cursor-cli-byok-linux-arm64 "$SOURCE_COMMIT" linux-arm64
+          cd release-assets
+          sha256sum cursor-cli-byok-linux-amd64 cursor-cli-byok-linux-arm64 > linux.sha256
+      - name: Upload Linux release assets
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: release-linux
+          path: release-assets/*
+          if-no-files-found: error
 
   macos:
     needs: [verify]
@@ -102,7 +122,7 @@ jobs:
       - name: Upload notarized artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: notarized-macos-${{ matrix.arch }}
+          name: release-macos-${{ matrix.arch }}
           path: release-assets/*
           if-no-files-found: error
 
@@ -114,7 +134,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:
-          pattern: notarized-macos-*
+          pattern: release-*
           path: release-assets
           merge-multiple: true
       - name: Verify final artifact checksums
@@ -123,7 +143,10 @@ jobs:
           set -euo pipefail
           test -f cursor-cli-byok-darwin-arm64.dmg
           test -f cursor-cli-byok-darwin-amd64.dmg
+          test -f cursor-cli-byok-linux-amd64
+          test -f cursor-cli-byok-linux-arm64
           sha256sum -c ./*.sha256
+          cat ./*.sha256 > checksums.txt
       - name: Publish fork release
         env:
           GH_TOKEN: ${{ github.token }}

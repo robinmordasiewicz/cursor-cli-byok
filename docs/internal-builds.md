@@ -83,7 +83,9 @@ SHA; both signing jobs check out that same SHA. The workflow then:
 7. Calculates checksums after stapling and records source SHA, signing team,
    notarization ID, signed binary hash and final DMG hash.
 8. Creates a draft fork release only after both architecture jobs succeed and
-   the publication job independently verifies the final checksums.
+   the publication job independently verifies the final checksums. It includes
+   the fork's Linux binaries and their receipts/checksums for the existing Linux
+   installer contract; Linux binaries are not Apple signed or notarized.
 
 A bare Mach-O CLI cannot carry a stapled ticket. The DMG carries that ticket
 and supports copying or Homebrew staging without an administrator installer.
