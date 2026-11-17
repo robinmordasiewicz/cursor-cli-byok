@@ -11,8 +11,8 @@ import (
 	"strings"
 	"text/tabwriter"
 
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/config"
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/paths"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/config"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/paths"
 )
 
 type modelOptions struct {

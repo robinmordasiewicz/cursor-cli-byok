@@ -14,7 +14,7 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/config"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/config"
 )
 
 const (

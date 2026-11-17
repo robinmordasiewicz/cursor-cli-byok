@@ -18,9 +18,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/config"
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/paths"
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/protocol"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/config"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/paths"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/protocol"
 	"google.golang.org/protobuf/encoding/protowire"
 )
 

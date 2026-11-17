@@ -14,9 +14,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/certs"
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/config"
-	localserver "github.com/shiqkuangsan/cursor-cli-byok/internal/server"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/certs"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/config"
+	localserver "github.com/robinmordasiewicz/cursor-cli-byok/internal/server"
 )
 
 func TestProviderEnvironmentOverridesProcessSnapshotWithoutExposingValues(t *testing.T) {

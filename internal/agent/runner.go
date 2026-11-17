@@ -8,9 +8,9 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/config"
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/protocol"
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/provider"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/config"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/protocol"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/provider"
 )
 
 type ModelResolver func(string) (config.ResolvedModel, error)

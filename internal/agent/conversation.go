@@ -4,7 +4,7 @@ import (
 	"errors"
 	"sync"
 
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/provider"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/provider"
 )
 
 const (

@@ -12,9 +12,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/config"
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/daemon"
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/paths"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/config"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/daemon"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/paths"
 )
 
 func TestCommandPrintsLinkerVersion(t *testing.T) {
@@ -27,7 +27,7 @@ func TestCommandPrintsLinkerVersion(t *testing.T) {
 
 	build := exec.Command(
 		"go", "build",
-		"-ldflags", "-X github.com/shiqkuangsan/cursor-cli-byok/internal/buildinfo.Version=v9.8.7",
+		"-ldflags", "-X github.com/robinmordasiewicz/cursor-cli-byok/internal/buildinfo.Version=v9.8.7",
 		"-o", binaryPath,
 		"./cmd/cursor-cli-byok",
 	)

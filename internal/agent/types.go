@@ -3,7 +3,7 @@ package agent
 import (
 	"context"
 
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/protocol"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/protocol"
 )
 
 type EventKind uint8

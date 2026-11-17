@@ -13,7 +13,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/certs"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/certs"
 )
 
 func TestStartServesHealthOverTrustedHTTP2(t *testing.T) {

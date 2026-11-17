@@ -14,14 +14,14 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/agent"
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/certs"
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/config"
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/paths"
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/provider"
-	openaiadapter "github.com/shiqkuangsan/cursor-cli-byok/internal/provider/openai"
-	localserver "github.com/shiqkuangsan/cursor-cli-byok/internal/server"
-	localtools "github.com/shiqkuangsan/cursor-cli-byok/internal/tools"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/agent"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/certs"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/config"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/paths"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/provider"
+	openaiadapter "github.com/robinmordasiewicz/cursor-cli-byok/internal/provider/openai"
+	localserver "github.com/robinmordasiewicz/cursor-cli-byok/internal/server"
+	localtools "github.com/robinmordasiewicz/cursor-cli-byok/internal/tools"
 )
 
 type ServiceOptions struct {

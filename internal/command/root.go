@@ -7,8 +7,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/buildinfo"
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/daemon"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/buildinfo"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/daemon"
 )
 
 const (

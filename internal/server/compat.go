@@ -7,8 +7,8 @@ import (
 	"mime"
 	"net/http"
 
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/config"
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/protocol"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/config"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/protocol"
 )
 
 const maxCompatibilityRequestBytes = 4 * 1024 * 1024

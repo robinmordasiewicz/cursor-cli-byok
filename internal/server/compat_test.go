@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/config"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/config"
 	"google.golang.org/protobuf/encoding/protowire"
 )
 

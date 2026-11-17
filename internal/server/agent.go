@@ -17,9 +17,9 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/agent"
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/protocol"
-	"github.com/shiqkuangsan/cursor-cli-byok/internal/provider"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/agent"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/protocol"
+	"github.com/robinmordasiewicz/cursor-cli-byok/internal/provider"
 )
 
 const (
